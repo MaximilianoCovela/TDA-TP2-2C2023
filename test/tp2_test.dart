@@ -148,11 +148,11 @@ void main() {
   });
 
   test('volumen', () {
-    final cantidades = List.generate(20, (index) => index * 1000);
+    final cantidades = List.generate(30, (index) => (index + 1) * 1000);
     for (final cantidad in cantidades) {
       int total = 0;
 
-      for (int i = 0; i < 20; i++) {
+      for (int i = 0; i <= 20; i++) {
         final datos = generarDatosVolumen(cantidad);
         final stopwatch = Stopwatch();
 
