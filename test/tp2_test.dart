@@ -147,6 +147,10 @@ void main() {
     expect(ganancia, 279175);
   });
 
+  // Transformar output prueba de volumen a lista de valores para copiar y pegar a excel:
+  // 1. Copiar y pegar output en un archivo de texto (solo de esa prueba)
+  // Usar regex para reemplazar: Cantidad [0-9]+, tiempo: ([0-9]+)\.([0-9]+)..
+  // Reemplazar por: $1,$2
   test('volumen', () {
     final cantidades = List.generate(30, (index) => (index + 1) * 1000);
     for (final cantidad in cantidades) {
