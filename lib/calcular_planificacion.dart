@@ -20,18 +20,20 @@ typedef Planificacion = List<PlanDia>;
     return ([], 0);
   }
 
-  final cantidad = cronograma.length;
-  final ultimoIndice = cantidad - 1;
+  final cantidadDias = cronograma.length;
+  final indiceUltimoDia = cantidadDias - 1;
 
-  final planificacion = List.filled(cantidad, PlanDia.entrenamiento);
+  final planificacion = List.filled(cantidadDias, PlanDia.entrenamiento);
 
   final (matriz, indicesMaximosPorDia) = rellenarMatriz(cronograma);
 
-  int ultimoEntrenamiento = ultimoIndice;
-  while (ultimoEntrenamiento >= 0) {
+  int indiceUltimoDiaEntrenado = indiceUltimoDia;
+  while (indiceUltimoDiaEntrenado >= 0) {
     // Cuantos días entrené desde el último descanso
-    final llevoEntrenando = indicesMaximosPorDia[ultimoEntrenamiento];
-    final proximoDescanso = ultimoEntrenamiento - llevoEntrenando - 1;
+    final diasCorridosEntrenando =
+        indicesMaximosPorDia[indiceUltimoDiaEntrenado];
+    final proximoDescanso =
+        indiceUltimoDiaEntrenado - diasCorridosEntrenando - 1;
 
     if (proximoDescanso < 0) {
       break;
@@ -39,46 +41,52 @@ typedef Planificacion = List<PlanDia>;
 
     planificacion[proximoDescanso] = PlanDia.descanso;
 
-    ultimoEntrenamiento = ultimoEntrenamiento - llevoEntrenando - 2;
+    indiceUltimoDiaEntrenado =
+        indiceUltimoDiaEntrenado - diasCorridosEntrenando - 2;
   }
 
   return (
     planificacion,
-    matriz[ultimoIndice][indicesMaximosPorDia[ultimoIndice]],
+    matriz[indiceUltimoDia][indicesMaximosPorDia[indiceUltimoDia]],
   );
 }
 
 (List<List<int>> matriz, List<int> indicesMaximosPorDia) rellenarMatriz(
     Cronograma cronograma) {
-  final cantidad = cronograma.length;
+  final cantidadDias = cronograma.length;
 
-  // Generamos la matriz con forma de triangulo
-  final matriz = List.generate(cantidad, (index) => List.filled(index + 1, 0));
+  // Generamos la matriz con forma de triángulo
+  final matriz =
+      List.generate(cantidadDias, (index) => List.filled(index + 1, 0));
 
-  final indicesMaximosPorDia =
-      List.filled(cantidad, 0); // Máxima ganancia posbile hasta cada día
+  final indicesMaximosPorDia = List.filled(cantidadDias,
+      0); // Índices de energía con la máxima ganancia posible de cada día
 
-  for (int dia = 0; dia < cantidad; dia++) {
-    for (int cansancio = 0; cansancio < matriz[dia].length; cansancio++) {
+  for (int indiceDia = 0; indiceDia < cantidadDias; indiceDia++) {
+    for (int indiceEnergia = 0;
+        indiceEnergia < matriz[indiceDia].length;
+        indiceEnergia++) {
       // Ganancia de la posicion actual
-      matriz[dia][cansancio] = min(
-        cronograma[dia].esfuerzo,
-        cronograma[cansancio].energia,
+      matriz[indiceDia][indiceEnergia] = min(
+        cronograma[indiceDia].esfuerzo,
+        cronograma[indiceEnergia].energia,
       );
 
-      // Si es la primera columna sumamos el valor máximo posible del día previo al descanso
-      if (cansancio == 0 && dia > 1) {
-        matriz[dia][cansancio] +=
-            matriz[dia - 2][indicesMaximosPorDia[dia - 2]];
+      // Si tiene toda la energía posible sumamos la ganancia máxima posible del día previo al descanso
+      if (indiceEnergia == 0 && indiceDia > 1) {
+        matriz[indiceDia][indiceEnergia] +=
+            matriz[indiceDia - 2][indicesMaximosPorDia[indiceDia - 2]];
       }
-      // Si hay cansancio, sumamos el valor que conseguimos el dia anterior
-      else if (cansancio > 0) {
-        matriz[dia][cansancio] += matriz[dia - 1][cansancio - 1];
+      // Si hay cansancio, sumamos la ganancia del día anterior
+      else if (indiceEnergia > 0) {
+        matriz[indiceDia][indiceEnergia] +=
+            matriz[indiceDia - 1][indiceEnergia - 1];
       }
 
-      // Guardamos el máximo de cada fila
-      if (matriz[dia][cansancio] > matriz[dia][indicesMaximosPorDia[dia]]) {
-        indicesMaximosPorDia[dia] = cansancio;
+      // Guardamos la ganancia máxima posible para ese día
+      if (matriz[indiceDia][indiceEnergia] >
+          matriz[indiceDia][indicesMaximosPorDia[indiceDia]]) {
+        indicesMaximosPorDia[indiceDia] = indiceEnergia;
       }
     }
   }
