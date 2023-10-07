@@ -1,4 +1,4 @@
-# TP1
+# TP2
 
 El código del algoritmo se encuentra en `lib/calcular_planificacion.dart`
 
