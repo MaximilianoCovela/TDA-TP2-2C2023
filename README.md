@@ -17,7 +17,7 @@ Para correr las **pruebas de volumen** utilizar `dart test test/tp2_test_volume.
 En una terminal dentro de la carpeta del proyecto ejecutar `dart run bin/tp2.dart "... nombre archivo con datos.txt"`
 
 Ejemplos:
- - `dart run bin/tp2.dart "test/3.txt"`
- - `dart run bin/tp2.dart "test/10.txt"`
- - `dart run bin/tp2.dart "test/100.txt"`
- - `dart run bin/tp2.dart "test/1000.txt"`
+ - `dart run bin/tp2.dart "test_data/3.txt"`
+ - `dart run bin/tp2.dart "test_data/10.txt"`
+ - `dart run bin/tp2.dart "test_data/100.txt"`
+ - `dart run bin/tp2.dart "test_data/1000.txt"`
