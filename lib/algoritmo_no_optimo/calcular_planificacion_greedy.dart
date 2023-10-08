@@ -1,19 +1,8 @@
 import 'dart:math' show min;
 
-typedef ValoresDia = ({int esfuerzo, int energia});
+import 'package:tp2/calcular_planificacion.dart';
 
-typedef Cronograma = List<ValoresDia>;
-
-enum PlanDia { entrenamiento, descanso }
-
-typedef Planificacion = List<PlanDia>;
-
-/*
-  - No puede haber dos descansos juntos,
-  - El último siempre es entrenamiento
-  - El primero puede ser o no descanso
-*/
-
+// * Este algoritmo no es optimo, pero se acerca un poco
 Planificacion calcularPlanificacion(Cronograma cronograma) {
   final cantidad = cronograma.length;
 

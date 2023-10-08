@@ -10,6 +10,8 @@ El código del algoritmo se encuentra en `lib/calcular_planificacion.dart`
 
 En una terminal dentro de la carpeta del proyecto ejecutar `dart test`
 
+Para correr las **pruebas de volumen** utilizar `dart test test/tp2_test_volume.dart`
+
 ## Correr el programa con un archivo arbitrario
 
 En una terminal dentro de la carpeta del proyecto ejecutar `dart run bin/tp2.dart "... nombre archivo con datos.txt"`

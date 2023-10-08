@@ -1,15 +1,10 @@
 name: tp2
-description: A sample command-line application.
+description: Código TP2 - Teoria de Algortimos FIUBA curso BUCHWALD 2023C2
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/MaximilianoCovela/TDA-TP2-2C2023
 
 environment:
   sdk: ^3.1.0
 
-# Add regular dependencies here.
-dependencies:
-  # path: ^1.8.0
-
 dev_dependencies:
-  lints: ^2.0.0
   test: ^1.21.0
