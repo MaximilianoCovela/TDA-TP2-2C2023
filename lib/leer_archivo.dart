@@ -9,10 +9,7 @@ Future<Cronograma> leerCronogramaDesdeArchivo(String nombre) async {
 
   final cantidadDias = int.parse(lineas.removeAt(0));
 
-  final Cronograma cronograma = List.filled(
-    cantidadDias,
-    (esfuerzo: 0, energia: 0),
-  );
+  final Cronograma cronograma = List.filled(cantidadDias, (esfuerzo: 0, energia: 0));
 
   for (int i = 0; i < cantidadDias; i++) {
     cronograma[i] = (

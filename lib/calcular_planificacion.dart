@@ -14,8 +14,7 @@ typedef Planificacion = List<PlanDia>;
   - El primero puede ser o no descanso
 */
 
-(Planificacion planificacion, int maximaGanancia) calcular(
-    Cronograma cronograma) {
+(Planificacion planificacion, int maximaGanancia) calcular(Cronograma cronograma) {
   if (cronograma.isEmpty) {
     return ([], 0);
   }
@@ -30,10 +29,8 @@ typedef Planificacion = List<PlanDia>;
   int indiceUltimoDiaEntrenado = indiceUltimoDia;
   while (indiceUltimoDiaEntrenado >= 0) {
     // Cuantos días entrené desde el último descanso
-    final diasCorridosEntrenando =
-        indicesMaximosPorDia[indiceUltimoDiaEntrenado];
-    final proximoDescanso =
-        indiceUltimoDiaEntrenado - diasCorridosEntrenando - 1;
+    final diasCorridosEntrenando = indicesMaximosPorDia[indiceUltimoDiaEntrenado];
+    final proximoDescanso = indiceUltimoDiaEntrenado - diasCorridosEntrenando - 1;
 
     if (proximoDescanso < 0) {
       break;
@@ -41,8 +38,7 @@ typedef Planificacion = List<PlanDia>;
 
     planificacion[proximoDescanso] = PlanDia.descanso;
 
-    indiceUltimoDiaEntrenado =
-        indiceUltimoDiaEntrenado - diasCorridosEntrenando - 2;
+    indiceUltimoDiaEntrenado = indiceUltimoDiaEntrenado - diasCorridosEntrenando - 2;
   }
 
   return (
@@ -51,21 +47,16 @@ typedef Planificacion = List<PlanDia>;
   );
 }
 
-(List<List<int>> matriz, List<int> indicesMaximosPorDia) rellenarMatriz(
-    Cronograma cronograma) {
+(List<List<int>> matriz, List<int> indicesMaximosPorDia) rellenarMatriz(Cronograma cronograma) {
   final cantidadDias = cronograma.length;
 
   // Generamos la matriz con forma de triángulo
-  final matriz =
-      List.generate(cantidadDias, (index) => List.filled(index + 1, 0));
+  final matriz = List.generate(cantidadDias, (index) => List.filled(index + 1, 0));
 
-  final indicesMaximosPorDia = List.filled(cantidadDias,
-      0); // Índices de energía con la máxima ganancia posible de cada día
+  final indicesMaximosPorDia = List.filled(cantidadDias, 0); // Índices de energía con la máxima ganancia posible de cada día
 
   for (int indiceDia = 0; indiceDia < cantidadDias; indiceDia++) {
-    for (int indiceEnergia = 0;
-        indiceEnergia < matriz[indiceDia].length;
-        indiceEnergia++) {
+    for (int indiceEnergia = 0; indiceEnergia < matriz[indiceDia].length; indiceEnergia++) {
       // Ganancia de la posicion actual
       matriz[indiceDia][indiceEnergia] = min(
         cronograma[indiceDia].esfuerzo,
@@ -74,18 +65,15 @@ typedef Planificacion = List<PlanDia>;
 
       // Si tiene toda la energía posible sumamos la ganancia máxima posible del día previo al descanso
       if (indiceEnergia == 0 && indiceDia > 1) {
-        matriz[indiceDia][indiceEnergia] +=
-            matriz[indiceDia - 2][indicesMaximosPorDia[indiceDia - 2]];
+        matriz[indiceDia][indiceEnergia] += matriz[indiceDia - 2][indicesMaximosPorDia[indiceDia - 2]];
       }
       // Si hay cansancio, sumamos la ganancia del día anterior
       else if (indiceEnergia > 0) {
-        matriz[indiceDia][indiceEnergia] +=
-            matriz[indiceDia - 1][indiceEnergia - 1];
+        matriz[indiceDia][indiceEnergia] += matriz[indiceDia - 1][indiceEnergia - 1];
       }
 
       // Guardamos la ganancia máxima posible para ese día
-      if (matriz[indiceDia][indiceEnergia] >
-          matriz[indiceDia][indicesMaximosPorDia[indiceDia]]) {
+      if (matriz[indiceDia][indiceEnergia] > matriz[indiceDia][indicesMaximosPorDia[indiceDia]]) {
         indicesMaximosPorDia[indiceDia] = indiceEnergia;
       }
     }

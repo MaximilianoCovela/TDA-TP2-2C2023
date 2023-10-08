@@ -14,12 +14,10 @@ Planificacion calcularPlanificacion(Cronograma cronograma) {
 
   for (int i = 1; i < cantidad; i++) {
     // Si antes no se descansó
-    final sinPrevioDescanso = sinDescanso +
-        min<int>(cronograma[cansancio].energia, cronograma[i].esfuerzo);
+    final sinPrevioDescanso = sinDescanso + min<int>(cronograma[cansancio].energia, cronograma[i].esfuerzo);
 
     // Si antes se descansó
-    final conPrevioDescanso =
-        conDescanso + min<int>(cronograma[0].energia, cronograma[i].esfuerzo);
+    final conPrevioDescanso = conDescanso + min<int>(cronograma[0].energia, cronograma[i].esfuerzo);
 
     // Si se descansa este día es porque el anterior no se descansó y se copia ese valor
     conDescanso = sinDescanso;
