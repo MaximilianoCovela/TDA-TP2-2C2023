@@ -53,7 +53,8 @@ typedef Planificacion = List<PlanDia>;
   // Generamos la matriz con forma de triángulo
   final matriz = List.generate(cantidadDias, (index) => List.filled(index + 1, 0));
 
-  final indicesMaximosPorDia = List.filled(cantidadDias, 0); // Índices de energía con la máxima ganancia posible de cada día
+  // Índices de energía con la máxima ganancia posible de cada día (valores óptimos)
+  final indicesMaximosPorDia = List.filled(cantidadDias, 0);
 
   for (int indiceDia = 0; indiceDia < cantidadDias; indiceDia++) {
     for (int indiceEnergia = 0; indiceEnergia < matriz[indiceDia].length; indiceEnergia++) {
